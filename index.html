@@ -268,6 +268,8 @@ function GetTracks(name, playlist) {
 										playlist.add(obj.tracks[j].href);
 				        	}
 						 if (firstset) { 
+						 	player.track = playlist.get(0);
+                			player.context = playlist;
 						 	//player.play(playlist.indexOf(firstsong), playlist);
                				firstset=false;
                				}
@@ -294,8 +296,8 @@ function BandList(name) {
                        		if (obj7.tracks.length>10) songcount = 10; 
 							else songcount = obj7.tracks.length;
 							for (var j=0; j < songcount; j++) {
-								for (var k=0; k<obj.tracks[j].artists.length; k++)
-									if (obj.tracks[j].artists[k].name == name)
+								for (var k=0; k<obj7.tracks[j].artists.length; k++)
+									if (obj7.tracks[j].artists[k].name == name)
 										bplaylist.add(obj7.tracks[j].href);
 				        	}
                			}
