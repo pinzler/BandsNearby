@@ -156,7 +156,7 @@ function loadVenueInfo() {
 					if (requestPhotos.status == 200) {
 							
                        		var object = JSON.parse(requestPhotos.responseText);
-							for (i=0; i<object.response.photos.items.length; i++) {
+							for (var i=0; i<object.response.photos.items.length; i++) {
 								
 								var url = url + "<img src=" + object.response.photos.items[i].url + ">";
 								document.getElementById("venue_pics").innerHTML = url; 
@@ -179,7 +179,7 @@ function loadVenueInfo() {
 					if (requestTips.status == 200) {
 							
                        		var object = JSON.parse(requestTips.responseText);
-							for (i=0; i<object.response.tips.items.length; i++) {
+							for (var i=0; i<object.response.tips.items.length; i++) {
 								
 								var text = text + "<p>" + object.response.tips.items[i].text + "</p>";
 								document.getElementById("venue_tips").innerHTML = text; 
@@ -199,7 +199,6 @@ function loadVenueInfo() {
 function loadBandInfo() {
 	
 	var bandId;
-	
 	if (artist_name.length > 0) {
 		
 		for (i=0; i< artist_name.length; i++) {
@@ -213,7 +212,7 @@ function loadBandInfo() {
 							if (requestBand.status == 200) {
 
 		                       		var object = JSON.parse(requestBand.responseText);
-									for (i=0; i<object.response.artists.length; i++) {
+									for (var i=0; i<object.response.artists.length; i++) {
 										
 										bandId = object.response.artists[i].id.text;
 										
@@ -244,7 +243,7 @@ function loadBandInfo() {
 														if (requestBandImages.status == 200) {
 
 									                       		var object = JSON.parse(requestBandImages.responseText);
-																for (i=0; i<object.response.photos.images.length; i++) {
+																for (var i=0; i<object.response.photos.images.length; i++) {
 
 																	var url = url + "<img src=" + object.response.images[i].url + ">";
 																	document.getElementById("band_pics").innerHTML = url; 
@@ -318,7 +317,7 @@ function loadBandInfo() {
 
 function loadBands()  {
 	
-       myAwesomePlaylist = new models.Playlist(venue + " " + show_date);     
+		myAwesomePlaylist = new models.Playlist(venue + " " + show_date);     
   
        var req2 = new XMLHttpRequest();
        req2.open("GET", "http://pinzler.kodingen.com/test/bnby/spot/getBands.php?venue=" + venue + "&show_date=" + show_date, true);
@@ -342,6 +341,7 @@ function loadBands()  {
 							tempan='"'+ obj3.arr[i].name +'"';
 						artist.push(convertToMilitaryTime(obj3.arr[i].show_hour) +": "+ obj3.arr[i].name + urltemp + " playing at " + obj3.arr[i].show_hour +"<BR><a href='#ytplayer' onclick='BandList(" + tempan + ")'>Make a new playlist for this band</a><BR><BR>");
 						artist_name.push(obj3.arr[i].name);
+						console.log(artist_name.length);
 						costs.push(obj3.arr[i].cost);
 						GetTracks(obj3.arr[i].name, myAwesomePlaylist);
 			
@@ -357,6 +357,7 @@ function loadBands()  {
 
        req2.send();
       //TwilSet();
+		
 }
 
 
