@@ -74,3 +74,21 @@ span.albumName{
 	position:relative;
 	overflow: hidden;
 }
+#venue_pics_container{
+	width: 200px;
+	overflow:hidden;
+}
+
+#venue_pics{
+  float: left;
+  position: relative;
+  height: 200px;
+  width: 5000px;
+}
+#venue_pics li{
+	float:left;
+}
+#venue_pics li img{
+
+	width: 500px;
+}

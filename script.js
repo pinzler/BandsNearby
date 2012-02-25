@@ -155,16 +155,15 @@ function loadVenueInfo() {
        requestPhotos.open("GET", "https://api.foursquare.com/v2/venues/" + VENUE_ID + "/photos?group=venue&client_id=HZDN05HPJVNNHXJVK0YKTCQUMGQWHUMF3Z10M5JTKQMPYZGB&client_secret=ZU42PRVV5MUNWEK1NU3Y2JCQFYU0T20DKVF4AGFG3BEPZ1YY&v=20120225", true);
 		
        requestPhotos.onreadystatechange = function() {
-               console.log(requestPhotos.status);
+               //console.log(requestPhotos.status);
                if (requestPhotos.readyState == 4) {   
 					if (requestPhotos.status == 200) {
-							
+							var url = '';
                        		var object = JSON.parse(requestPhotos.responseText);
 							for (var i=0; i<object.response.photos.items.length; i++) {
-								
-								var url = url + "<img src=" + object.response.photos.items[i].url + ">";
+
+								url = url + "<li><img src=" + object.response.photos.items[i].url + "></li>";
 								document.getElementById("venue_pics").innerHTML = url; 
-								
 							}
 
 						}	
@@ -178,7 +177,7 @@ function loadVenueInfo() {
        requestTips.open("GET", "https://api.foursquare.com/v2/venues/" + VENUE_ID + "/tips?group=venue&client_id=HZDN05HPJVNNHXJVK0YKTCQUMGQWHUMF3Z10M5JTKQMPYZGB&client_secret=ZU42PRVV5MUNWEK1NU3Y2JCQFYU0T20DKVF4AGFG3BEPZ1YY&v=20120225", true);
 		
        requestTips.onreadystatechange = function() {
-               console.log(requestTips.status);
+               //console.log(requestTips.status);
                if (requestTips.readyState == 4) {   
 					if (requestTips.status == 200) {
 							
@@ -196,7 +195,7 @@ function loadVenueInfo() {
 		}
 		
 	requestTips.send();	
-		
+		console.log('test');
 
 }
 
@@ -211,7 +210,7 @@ function loadBandInfo() {
 		    requestBand.open("GET", "http://developer.echonest.com/api/v4/artist/search?api_key=KPO6YTNCVKGHAPOUJ&format=json&name=" + artist_name[i] + "&results=1", true);
 
 		       requestBand.onreadystatechange = function() {
-		               console.log(requestBand.status);
+		               //console.log(requestBand.status);
 		               if (requestBand.readyState == 4) {   
 							if (requestBand.status == 200) {
 
@@ -242,7 +241,7 @@ function loadBandInfo() {
 									    requestBandImages.open("GET", "http://developer.echonest.com/api/v4/artist/familiarity?api_key=N6E4NIOVYMTHNDM8J&id=" + bandId + "&format=json", true);
 
 									       requestBandImages.onreadystatechange = function() {
-									               console.log(requestBandImages.status);
+									               //console.log(requestBandImages.status);
 									               if (requestBandImages.readyState == 4) {   
 														if (requestBandImages.status == 200) {
 															loadBands();
@@ -268,7 +267,7 @@ function loadBandInfo() {
 									    requestBandBio.open("GET", "http://developer.echonest.com/api/v4/artist/biographies?api_key=N6E4NIOVYMTHNDM8J&id=" +bandId+ "&format=json&results=1&start=0", true);
 
 									       requestBandBio.onreadystatechange = function() {
-									               console.log(requestBandBio.status);
+									               //console.log(requestBandBio.status);
 									               if (requestBandBio.readyState == 4) {   
 														if (requestBandBio.status == 200) {
 
@@ -290,7 +289,7 @@ function loadBandInfo() {
 									    requestBandHotness.open("GET", "http://developer.echonest.com/api/v4/artist/hotttnesss?api_key=N6E4NIOVYMTHNDM8J&id=" + bandId + "&format=json", true);
 
 									       requestBandHotness.onreadystatechange = function() {
-									               console.log(requestBandHotness.status);
+									               //console.log(requestBandHotness.status);
 									               if (requestBandHotness.readyState == 4) {   
 														if (requestBandHotness.status == 200) {
 
@@ -317,10 +316,6 @@ function loadBandInfo() {
 		}
 		
 	}
-	
-	
-	
-}
 
 function loadBands()  {
 	
@@ -616,7 +611,7 @@ function populateFakePlaylist(){
 	  var zebra;
 	  for(var i=0; i<fakePlaylist.length; i++){
 		zebra = i%2 == 1 ? ' zebra' :'';
-		console.log(fakePlaylist[i]);
+		//console.log(fakePlaylist[i]);
 	    html += '<li class="playlistItem'+zebra+'" song_url='+fakePlaylist[i].href+'><span class="songName">'+fakePlaylist[i].name+'</span><span class="artistName">'+fakePlaylist[i].artists[0].name+'</span><span class="albumName"><a href="'+fakePlaylist[i].album.href+'">'+fakePlaylist[i].album.name+'</a></span></li>';
 	  }
 	  $('#playlistContainer').show();
