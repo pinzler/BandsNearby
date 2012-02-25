@@ -90,8 +90,117 @@ function prepBands() {
 	var y=document.getElementById("venueslist").options;
 	venue = y[x].text;
 	loadBands(); 
+<<<<<<< HEAD
+<<<<<<< HEAD
+	loadVenueInfo();
+	
+}
+
+function loadVenueInfo() {
+	
+	var VENUE_ID;
+	var loco = "";
+	
+	var arr = new Array(14);
+	for ( var i = 0; i < 14; i++ ) {
+	    arr[i] = new Array(2);
+
+	 }
+	
+	arr[0][0] = "Arlenes Grocery";
+	arr[0][1] = "3fd66200f964a520dce31ee3";
+	arr[1][0] = "Bitter End";
+	arr[1][1] = "3fd66200f964a520d9ea1ee3";
+	arr[2][0] = "Caffe Vivaldi";
+	arr[2][1] = "43598100f964a520fa281fe3";
+	arr[3][0] = "Cake Shop";
+	arr[3][1] = "42853f80f964a52008231fe3";
+	arr[4][0] = "Googies";
+	arr[4][1] = "4abeda71f964a520499020e3";
+	arr[5][0] = "Knitting Factory Brooklyn";
+	arr[5][1] = "4aa6ccdaf964a520064b20e3";
+	arr[6][0] = "Living Room";
+	arr[6][1] = "3fd66200f964a5200deb1ee3";
+	arr[7][0] = "Mercury Lounge";
+	arr[7][1] = "3fd66200f964a520dde31ee3";
+	arr[8][0] = "Music Hall of Williamsburg";
+	arr[8][1] = "47048266f964a5204f4b1fe3";
+	arr[9][0] = "Parkside Lounge";
+	arr[9][1] = "3fd66200f964a52012e41ee3";
+	arr[10][0] = "Pianos";
+	arr[10][1] = "3fd66200f964a5200fe41ee3";
+	arr[11][0] = "Rockwood Music Hall";
+	arr[11][1] = "42b75880f964a52088251fe3";
+	arr[12][0] = "Sidewalk Cafe";
+	arr[12][1] = "3fd66200f964a5201fe51ee3";
+	arr[13][0] = "Sullivan Hall";
+	arr[13][1] = "49f9d486f964a520896d1fe3";
+	
+	for(var i=0; i<arr.length; i++) {
+		
+		if (arr[i][0] == venue) {
+		  
+			VENUE_ID = arr[i][1];
+			
+		  }
+	}
+	
+	var requestPhotos = new XMLHttpRequest();
+       requestPhotos.open("GET", "https://api.foursquare.com/v2/venues/" + VENUE_ID + "/photos?group=venue&client_id=HZDN05HPJVNNHXJVK0YKTCQUMGQWHUMF3Z10M5JTKQMPYZGB&client_secret=ZU42PRVV5MUNWEK1NU3Y2JCQFYU0T20DKVF4AGFG3BEPZ1YY&v=20120225", true);
+		
+       requestPhotos.onreadystatechange = function() {
+               console.log(requestPhotos.status);
+               if (requestPhotos.readyState == 4) {   
+					if (requestPhotos.status == 200) {
+							
+                       		var object = JSON.parse(requestPhotos.responseText);
+							for (i=0; i<object.response.photos.items.length; i++) {
+								
+								var url = url + "<img src=" + object.response.photos.items[i].url + ">";
+								document.getElementById("venue_pics").innerHTML = url; 
+								
+							}
+
+						}	
+			}
+		
+		}
+		
+	requestPhotos.send();
+	
+	var requestTips = new XMLHttpRequest();
+       requestTips.open("GET", "https://api.foursquare.com/v2/venues/" + VENUE_ID + "/tips?group=venue&client_id=HZDN05HPJVNNHXJVK0YKTCQUMGQWHUMF3Z10M5JTKQMPYZGB&client_secret=ZU42PRVV5MUNWEK1NU3Y2JCQFYU0T20DKVF4AGFG3BEPZ1YY&v=20120225", true);
+		
+       requestTips.onreadystatechange = function() {
+               console.log(requestTips.status);
+               if (requestTips.readyState == 4) {   
+					if (requestTips.status == 200) {
+							
+                       		var object = JSON.parse(requestTips.responseText);
+							for (i=0; i<object.response.tips.items.length; i++) {
+								
+								var text = text + "<p>" + object.response.tips.items[i].text + "</p>";
+								document.getElementById("venue_tips").innerHTML = text; 
+								
+							}
+
+						}	
+			}
+		
+		}
+		
+	requestTips.send();	
+		
+
+}
+=======
 	
          }
+>>>>>>> f38a0bcf64907a347cac87d900e850bda1762916
+=======
+	
+         }
+>>>>>>> f38a0bcf64907a347cac87d900e850bda1762916
 
 
 function loadBands()  {
