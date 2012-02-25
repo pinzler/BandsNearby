@@ -26,7 +26,7 @@ window.onload = function(){
 	       var req1 = new XMLHttpRequest();
 	       req1.open("GET", "http://pinzler.kodingen.com/test/bnby/spot/getDates.php", true);
 	       req1.onreadystatechange = function() {
-	               console.log(req1.status);
+	               //console.log(req1.status);
 
 	               if (req1.readyState == 4) {
 	                       if (req1.status == 200) {
@@ -59,14 +59,14 @@ function prepVenues() {
 	   var req4 = new XMLHttpRequest();
        req4.open("GET", "http://pinzler.kodingen.com/test/bnby/spot/getVenues.php?show_date=" + show_date, true);
        req4.onreadystatechange = function() {
-               console.log(req4.status);
+               //console.log(req4.status);
 
                if (req4.readyState == 4) {
                        if (req4.status == 200) {
 			           var obj9 = JSON.parse(req4.responseText);
 						var ven = "";
 						var listform="<form name='view2'><select id='venueslist'>";
-			
+			console.log(obj9);
 			for (h=0; h<obj9.arr.length; h++) {
 				ven = obj9.arr[h].venue;
 				listform = listform + "<option value='" + ven + "'>" + ven + "</option>";
@@ -105,7 +105,7 @@ function loadBands()  {
                if (req2.readyState == 4) {
                        if (req2.status == 200) {
                         var obj3 = JSON.parse(req2.responseText);
-                        console.log(obj3);
+                        //console.log(obj3);
 						var i=0;
 						artist=[];
 						artist_name=[];
@@ -231,12 +231,11 @@ function updatePageWithTrackDetails() {
        } else {
                var track = playerTrackInfo.data;
 		//var ytplayer_playitem = myAwesomePlaylist.indexOf(track); alert(ytplayer_playitem);
-               var str1 = track.name + " on the album " + track.album.name + " by "
-		+ track.album.artist.name + ".<BR><img src = '" + track.album.cover + "'>";
-
-
-
-       header.innerHTML = str1;
+               var albumImg = '<img class="albumCover" src = "' + track.album.cover + '">';
+               var str1 = '<h2 class="songTitle">'+ track.name + '</h2><h3>on <a href="'+track.album.uri+'">' + track.album.name + '</a></h3>';
+               var str2 = '<h3>by ' + '<a href="'+track.album.artist.uri+'">'+track.album.artist.name+'</a></h2>';
+               console.log(track.album.artist);
+       header.innerHTML = albumImg + str1 + str2;
        }
 }
 
@@ -245,7 +244,7 @@ function GetTracks(name, playlist) {
        var req = new XMLHttpRequest();
        req.open("GET", "http://ws.spotify.com/search/1/track.json?q=" + name, true);
        req.onreadystatechange = function() {
-               console.log(req.status);
+               //console.log(req.status);
 
                if (req.readyState == 4) {
                        if (req.status == 200) {
@@ -279,7 +278,7 @@ function BandList(name) {
        var req7 = new XMLHttpRequest();
        req7.open("GET", "http://ws.spotify.com/search/1/track.json?q=" + name, true);
        req7.onreadystatechange = function() {
-               console.log(req7.status);
+               //console.log(req7.status);
 
                if (req7.readyState == 4) {
                        if (req7.status == 200) {
@@ -305,7 +304,7 @@ function tweet(artist1) {
     var req7 = new XMLHttpRequest();
        req7.open("GET", "http://pinzler.kodingen.com/test/bnby/spot/tweet.php?artist=" + artist1, true);
        req7.onreadystatechange = function() {
-               console.log(req7.status);
+               //console.log(req7.status);
 
                if (req7.readyState == 4) {
                        if (req7.status == 200) {
@@ -327,7 +326,7 @@ function TwilSet() {
     
     socket.on('message', function(obj) {
       console.log('message:');
-      console.log(obj);
+      //console.log(obj);
       
       var digits = obj;
 	//alert(digits.action[0]);

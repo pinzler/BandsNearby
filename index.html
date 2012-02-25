@@ -1,43 +1,37 @@
 <!doctype html>
-<head>
-  
-  <title>BandsNearby</title>
-  <script type="text/javascript" src="http://code.jquery.com/jquery-1.6.4.js"></script>
-  <script type="text/javascript" src="http://socketio-example.nodester.com/socket.io/socket.io.js"></script>
-  <script type="text/javascript" src="script.js"></script>
-  <link rel="stylesheet" href="sp://import/css/adam.css">
-
-</head>
-
-<body>
-
- <div style="float: left; width: 400px; height: 20px;">
-   <a name="list"></a>
-   <div id="list_div0"></div>
- </div>
-
- <br style="clear: both;" />
- <br style="clear: both;" />
- 
- <div style="float: left; width: 400px; height: 20px;">
-   <a name="list1"></a>
-   <div id="list_div1"></div>
- </div>
- <br style="clear: both;" />
- <br style="clear: both;" />
-
-<div class="demo-canvas"  style="min-width: 1160px;">
- <div style="float: left; width: 400px; height: 360px;">
-   <a name="ytplayer"></a>
-   <div id="ytplayer_div1"></div>
- </div>
- <div style="float: left; width: 360px; height: 360px; overflow-y: scroll;">
-   <a name="results"></a>
-   <div id="ytplayer_div3"></div>
- </div>
- 
-</div>
-
-
-</body>
+<html>
+	<head>
+	  <title>BandsNearby</title>
+	  <script type="text/javascript" src="http://code.jquery.com/jquery-1.6.4.js"></script>
+	  <script type="text/javascript" src="http://socketio-example.nodester.com/socket.io/socket.io.js"></script>
+	  <script type="text/javascript" src="script.js"></script>
+	  <link rel="stylesheet" href="sp://import/css/adam.css" />
+	  <link rel="stylesheet" href="style.css" />
+	</head>
+	<body>
+	  <div class="searchContainer">
+		
+		<div class="dateChoice">
+	  	  <a name="list"></a>
+	  	  <div id="list_div0"></div>
+		</div>
+		<div class="venueChoice">
+	   	  <a name="list1"></a>
+	   	  <div id="list_div1"></div>
+	 	</div>
+	 	
+	  </div>
+	  <div class="demo-canvas" id="artistContainer">
+	  
+	    <div class="artistInfo">
+	      <a name="ytplayer"></a>
+	      <div id="ytplayer_div1"></div>
+	    </div>
+	    <div class="venueInfo">
+	      <a name="results"></a>
+	      <div id="ytplayer_div3"></div>
+	    </div>
+	  </div>
+	
+	</body>
 </html>

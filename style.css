@@ -1,1 +1,31 @@
-@CHARSET "UTF-8";
+.albumCover{
+	-webkit-border-radius: 12px;
+	width: 200px;
+}
+.albumInfo{
+	float: left;
+	clear: left;
+	width: 400px;
+	height: 360px;
+	margin-top: 20px
+}
+.songTitle{
+	font-weight: bold;
+	font-size: 16px;
+}
+.artistInfo a{
+	color: #7CFC00;
+}
+
+.searchContainer{
+}
+
+#artistContainer{
+	padding: 2em 0 0 3%;
+}
+#artistContainer div{
+	display: inline-block;
+}
+.venueInfo{
+	vertical-align: top;
+}
