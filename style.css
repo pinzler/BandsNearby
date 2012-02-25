@@ -2,6 +2,9 @@
 	-webkit-border-radius: 12px;
 	width: 200px;
 }
+.artistInfo{
+	width: 200px;
+}
 .albumInfo{
 	float: left;
 	clear: left;
@@ -16,16 +19,58 @@
 .artistInfo a{
 	color: #7CFC00;
 }
-
-.searchContainer{
+.artistInfo h3{
+	color: #999;
+	font-size: 12px;
 }
 
+
 #artistContainer{
-	padding: 2em 0 0 3%;
+	padding: 2em 0 0 2em;
 }
 #artistContainer div{
 	display: inline-block;
 }
+#playlistContainer{
+	padding: 1em 2em;
+	display: none;
+}
+#playlistContainer h1{
+	font-size: 24px;
+	font-weight: bold;
+}
 .venueInfo{
 	vertical-align: top;
+}
+#playlist{
+	margin-top: 1em;
+}
+.playlistItem{
+	padding: 3px 0 4px 5px;
+	color: #CCC;
+	font-size: 11px;
+}
+.zebra{
+	background-color: #303030;
+}
+.playlistItem.active{
+	background-color: #87CEFF;	
+	color: #505050;
+}
+span.artistName{
+	display: inline-block;
+	left: 100px;
+	position:relative;
+	overflow: hidden;
+}
+span.songName{
+	display: inline-block;
+	width: 250px;
+	overflow: hidden;
+}
+span.albumName{
+	display: inline-block;
+	left: 200px;
+	position:relative;
+	overflow: hidden;
 }

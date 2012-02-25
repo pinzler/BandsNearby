@@ -6,7 +6,7 @@
 	var myAwesomePlaylist;
 	var firstsong; 
 	var firstset;
-
+	var fakePlaylist = [];
 
 	 var artist = [];
 	 var artist_name = [];
@@ -17,15 +17,19 @@
 	 var share_string = "";
 	 var venue = "";
 	 var show_date = "";
-	
+
 	 var familiarity;
 	 var hotness;
 
+	 
+window.onbeforeunload = function(){
+	player.playing = 0;	
+}
+
 window.onload = function(){
 
-
 	//Loads the initial pull down menu to pick dates
-	    
+	   
 	       var req1 = new XMLHttpRequest();
 	       req1.open("GET", "http://pinzler.kodingen.com/test/bnby/spot/getDates.php", true);
 	       req1.onreadystatechange = function() {
@@ -69,7 +73,7 @@ function prepVenues() {
 			           var obj9 = JSON.parse(req4.responseText);
 						var ven = "";
 						var listform="<form name='view2'><select id='venueslist'>";
-			console.log(obj9);
+			
 			for (h=0; h<obj9.arr.length; h++) {
 				ven = obj9.arr[h].venue;
 				listform = listform + "<option value='" + ven + "'>" + ven + "</option>";
@@ -241,6 +245,9 @@ function loadBandInfo() {
 									               console.log(requestBandImages.status);
 									               if (requestBandImages.readyState == 4) {   
 														if (requestBandImages.status == 200) {
+															loadBands();
+														}
+
 
 									                       		var object = JSON.parse(requestBandImages.responseText);
 																for (var i=0; i<object.response.photos.images.length; i++) {
@@ -457,13 +464,12 @@ function updatePageWithTrackDetails() {
                var albumImg = '<img class="albumCover" src = "' + track.album.cover + '">';
                var str1 = '<h2 class="songTitle">'+ track.name + '</h2><h3>on <a href="'+track.album.uri+'">' + track.album.name + '</a></h3>';
                var str2 = '<h3>by ' + '<a href="'+track.album.artist.uri+'">'+track.album.artist.name+'</a></h2>';
-               console.log(track.album.artist);
        header.innerHTML = albumImg + str1 + str2;
        }
 }
 
 function GetTracks(name, playlist) {
-
+	   fakePlaylist = [];
        var req = new XMLHttpRequest();
        req.open("GET", "http://ws.spotify.com/search/1/track.json?q=" + name, true);
        req.onreadystatechange = function() {
@@ -476,22 +482,29 @@ function GetTracks(name, playlist) {
 							else songcount = obj.tracks.length;
 							for (var j=0; j < songcount; j++) {
 								if (j==0) firstsong = obj.tracks[j].href; 
-								for (var k=0; k<obj.tracks[j].artists.length; k++)
-									if (obj.tracks[j].artists[k].name == name)
-										playlist.add(obj.tracks[j].href);
+								for (var k=0; k < obj.tracks[j].artists.length; k++){
+									if(typeof obj.tracks[j].artists[k] != 'undefined'){
+										if (obj.tracks[j].artists[k].name.toLowerCase().trim() == name.toLowerCase().trim()){
+										  playlist.add(obj.tracks[j].href);
+										  fakePlaylist.push(obj.tracks[j]);
+									  }
+									}
+								}
 				        	}
+							populateFakePlaylist();
 						 if (firstset) { 
-						 	player.track = playlist.get(0);
-                			player.context = playlist;
-						 	//player.play(playlist.indexOf(firstsong), playlist);
-               				firstset=false;
+							 if(playlist.length > 0 ){
+								 player.track = playlist.get(0);
+								 player.context = playlist;
+						 		//player.play(playlist.indexOf(firstsong), playlist);
+               					firstset=false;
+							 }
                				}
                			}
                	}
        };
 
        req.send();
-
 }
 
 function BandList(name) {
@@ -506,6 +519,7 @@ function BandList(name) {
                if (req7.readyState == 4) {
                        if (req7.status == 200) {
                        		var obj7 = JSON.parse(req7.responseText);
+                       		console.log(obj7);
                        		if (obj7.tracks.length>10) songcount = 10; 
 							else songcount = obj7.tracks.length;
 							for (var j=0; j < songcount; j++) {
@@ -595,3 +609,31 @@ function TwilControl(num) {
 	}
 
 }
+
+function populateFakePlaylist(){
+	if(fakePlaylist.length){
+	  var html = '';
+	  var zebra;
+	  for(var i=0; i<fakePlaylist.length; i++){
+		zebra = i%2 == 1 ? ' zebra' :'';
+		console.log(fakePlaylist[i]);
+	    html += '<li class="playlistItem'+zebra+'" song_url='+fakePlaylist[i].href+'><span class="songName">'+fakePlaylist[i].name+'</span><span class="artistName">'+fakePlaylist[i].artists[0].name+'</span><span class="albumName"><a href="'+fakePlaylist[i].album.href+'">'+fakePlaylist[i].album.name+'</a></span></li>';
+	  }
+	  $('#playlistContainer').show();
+	  $('#playlist').html(html);
+	}
+}
+
+$(function(){
+	
+	 $('#playlist .playlistItem').live('click', function(){
+		 if($(this).hasClass('active')){
+				console.log($(this).attr('song_url'));
+				player.play($(this).attr('song_url'));
+			 }
+		 $('#playlist .playlistItem').each(function(){
+			 $(this).removeClass('active');
+		 }); 
+		 $(this).addClass('active');
+	 });
+});
