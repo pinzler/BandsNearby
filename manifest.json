@@ -15,15 +15,9 @@
 		"http://pinzler.kodingen.com",
 		"http://code.jquery.com/",
 		"http://nodaphone.dtrejo.com/",
-<<<<<<< HEAD
-<<<<<<< HEAD
 		"http://socketio-example.nodester.com/",
-		"https://*.foursquare.com/"
-=======
-		"http://socketio-example.nodester.com/"
->>>>>>> f38a0bcf64907a347cac87d900e850bda1762916
-=======
-		"http://socketio-example.nodester.com/"
->>>>>>> f38a0bcf64907a347cac87d900e850bda1762916
+		"https://*.foursquare.com/",
+		"http://*.echonest.com/"
+
 	]
 }
