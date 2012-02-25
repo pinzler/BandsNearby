@@ -90,8 +90,6 @@ function prepBands() {
 	var y=document.getElementById("venueslist").options;
 	venue = y[x].text;
 	loadBands(); 
-<<<<<<< HEAD
-<<<<<<< HEAD
 	loadVenueInfo();
 	
 }
@@ -193,15 +191,6 @@ function loadVenueInfo() {
 		
 
 }
-=======
-	
-         }
->>>>>>> f38a0bcf64907a347cac87d900e850bda1762916
-=======
-	
-         }
->>>>>>> f38a0bcf64907a347cac87d900e850bda1762916
-
 
 function loadBands()  {
 	
