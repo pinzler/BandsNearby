@@ -1,0 +1,20 @@
+{
+	"BundleType": "Application",
+	"AppIcon": {
+		"36x18": "tutorial.png"
+	},
+	"AppName": {
+		"en": "BandsNearby"
+	},
+	"SupportedLanguages": [
+		"en"
+	],
+	"RequiredPermissions": [
+		"http://bandsnearby.com",
+		"http://ws.spotify.com",
+		"http://pinzler.kodingen.com",
+		"http://code.jquery.com/",
+		"http://nodaphone.dtrejo.com/",
+		"http://socketio-example.nodester.com/"
+	]
+}
