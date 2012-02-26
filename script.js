@@ -445,8 +445,8 @@ function loadBands()  {
 			    						urltemp = " (<a href=" + BandsDB.arr[i].url + " target=_blank>link</a>)";
 									else urltemp = "";
 									tempan='"'+ BandsDB.arr[i].name +'"';
-									artist.push(BandsDB.arr[i].name + urltemp + " is playing soon at " + BandsDB.arr[i].venue +", " + BandsDB.arr[i].show_date + ", "+  BandsDB.arr[i].show_hour+ ", cover: $" + BandsDB.arr[i].cost +"<BR><a href='#ytplayer' onclick='BandList(" + tempan + ")'>Make a new playlist for this band</a><BR>");
-									venue_info.push(BandsDB.arr[i].name + urltemp +", " + BandsDB.arr[i].show_date + ", "+  BandsDB.arr[i].show_hour + ", cover: $" + BandsDB.arr[i].cost + "<BR>");
+									artist.push(BandsDB.arr[i].name + urltemp + " is playing soon at " + BandsDB.arr[i].venue +", " + BandsDB.arr[i].show_date + ", "+  BandsDB.arr[i].show_hour+ ", cover: $" + BandsDB.arr[i].cost +"<BR><a href='#ytplayer' onclick='BandList(" + tempan + ")'>(Make playlist for this band)</a><BR><BR>");
+									venue_info.push(BandsDB.arr[i].name + urltemp +", " + BandsDB.arr[i].show_date + ", "+  BandsDB.arr[i].show_hour + ", cover: $" + BandsDB.arr[i].cost + "<BR><a href='#ytplayer' onclick='BandList(" + tempan + ")'>(Make playlist for this band)</a><BR><BR>");
 									artist_name.push(BandsDB.arr[i].name);
 									//alert(artist_name.length);
 									costs.push(BandsDB.arr[i].cost);
@@ -598,13 +598,15 @@ function updatePageWithTrackDetails() {
 			}
 			for ( var h = 0; h < BandsDB.arr.length; h++ ) {
 				
-				if (BandsDB.arr[h].venue == tempVen) {
-				venueTxt = venueTxt + venue_info[h];
+				if (BandsDB.arr[h].venue == tempVen && checkDB[h] == 1 ) {
+					venueTxt = venueTxt + venue_info[h];
+			
+				}
 			
 			}
+			document.getElementById("venue_bands").innerHTML = ""
+			document.getElementById("venue_bands").innerHTML = venueTxt;
 			
-			
-			}
 	}}
 }
 
@@ -802,6 +804,7 @@ $(function(){
 		 if($(this).hasClass('active')){
 				console.log($(this).attr('song_url'));
 				player.play($(this).attr('song_url'));
+				updatePageWithTrackDetails();
 			 }
 		 $('#playlist .playlistItem').each(function(){
 			 $(this).removeClass('active');
