@@ -98,14 +98,12 @@ function prepBands() {
 	venue = y[x].text;
 	loadBands(); 
 	loadVenueInfo();
-	loadBandInfo();
 	
 }
 
 function loadVenueInfo() {
 	
 	var VENUE_ID;
-	var loco = "";
 	
 	var arr = new Array(14);
 	for ( var i = 0; i < 14; i++ ) {
@@ -195,127 +193,118 @@ function loadVenueInfo() {
 		}
 		
 	requestTips.send();	
-		console.log('test');
 
 }
 
-function loadBandInfo() {
+function loadBandInfo(bandName) {
 	
 	var bandId;
-	if (artist_name.length > 0) {
-		
-		for (i=0; i< artist_name.length; i++) {
-			
-			var requestBand = new XMLHttpRequest();
-		    requestBand.open("GET", "http://developer.echonest.com/api/v4/artist/search?api_key=KPO6YTNCVKGHAPOUJ&format=json&name=" + artist_name[i] + "&results=1", true);
+	
+	var requestBand = new XMLHttpRequest();
+		requestBand.open("GET", "http://developer.echonest.com/api/v4/artist/search?api_key=KPO6YTNCVKGHAPOUJ&format=json&name=" + bandName + "&results=1", true);
 
-		       requestBand.onreadystatechange = function() {
-		               //console.log(requestBand.status);
-		               if (requestBand.readyState == 4) {   
-							if (requestBand.status == 200) {
+			requestBand.onreadystatechange = function() {
+				console.log(requestBand.status); 
+				if (requestBand.readyState == 4) {   
+						if (requestBand.status == 200) {
 
-		                       		var object = JSON.parse(requestBand.responseText);
-									for (var i=0; i<object.response.artists.length; i++) {
-										
-										bandId = object.response.artists[i].id.text;
-										
-										var requestFamiliarity = new XMLHttpRequest();
-									    requestFamiliarity.open("GET", "http://developer.echonest.com/api/v4/artist/familiarity?api_key=N6E4NIOVYMTHNDM8J&id=" + bandId + "&format=json", true);
+				           		var object = JSON.parse(requestBand.responseText);
+								for (var i=0; i<object.response.artists.length; i++) {
 
-									       requestTips.onreadystatechange = function() {
-									               console.log(requestFamiliarity.status);
-									               if (requestFamiliarity.readyState == 4) {   
-														if (requestFamiliarity.status == 200) {
+									bandId = object.response.artists[i].id;
+									
+									var requestFamiliarity = new XMLHttpRequest();
+									requestFamiliarity.open("GET", "http://developer.echonest.com/api/v4/artist/familiarity?api_key=N6E4NIOVYMTHNDM8J&id=" + bandId + "&format=json", true);
 
-									                       		var object = JSON.parse(requestFamiliarity.responseText);
-																familiarity = object.artist.familiarity;
+									   requestFamiliarity.onreadystatechange = function() {
+									           console.log(requestFamiliarity.status);
+									           if (requestFamiliarity.readyState == 4) {   
+													if (requestFamiliarity.status == 200) {
 
-															}	
-												}
+									                   		var object = JSON.parse(requestFamiliarity.responseText);
+															familiarity = object.response.artist.familiarity;
 
+														}	
 											}
 
-										requestFamiliarity.send();
-										
-										var requestBandImages = new XMLHttpRequest();
-									    requestBandImages.open("GET", "http://developer.echonest.com/api/v4/artist/familiarity?api_key=N6E4NIOVYMTHNDM8J&id=" + bandId + "&format=json", true);
+										}
 
-									       requestBandImages.onreadystatechange = function() {
-									               //console.log(requestBandImages.status);
-									               if (requestBandImages.readyState == 4) {   
-														if (requestBandImages.status == 200) {
-															loadBands();
-														}
+									requestFamiliarity.send();
 
+									var requestBandImages = new XMLHttpRequest();
+									requestBandImages.open("GET", "http://developer.echonest.com/api/v4/artist/images?api_key=N6E4NIOVYMTHNDM8J&id=" + bandId + "&format=json&results=1&start=0&license=unknown", true);
 
-									                       		var object = JSON.parse(requestBandImages.responseText);
-																for (var i=0; i<object.response.photos.images.length; i++) {
+									   requestBandImages.onreadystatechange = function() {
+									           
+									           if (requestBandImages.readyState == 4) {   
+													if (requestBandImages.status == 200) {
+															var url = '';
+									                   		var object = JSON.parse(requestBandImages.responseText);
+															
+															for (var i=0; i<object.response.images.length; i++) {
 
-																	var url = url + "<img src=" + object.response.images[i].url + ">";
-																	document.getElementById("band_pics").innerHTML = url; 
+																url = url + "<li><img src=" + object.response.images[i].url + "></li>";
+																console.log(url);
+																document.getElementById("band_pics").innerHTML = url;	
 
-																}
+															}
 
-															}	
-												}
-
+													}	
 											}
 
-										requestBandImages.send();
-										
-										var requestBandBio = new XMLHttpRequest();
-									    requestBandBio.open("GET", "http://developer.echonest.com/api/v4/artist/biographies?api_key=N6E4NIOVYMTHNDM8J&id=" +bandId+ "&format=json&results=1&start=0", true);
+										}
 
-									       requestBandBio.onreadystatechange = function() {
-									               //console.log(requestBandBio.status);
-									               if (requestBandBio.readyState == 4) {   
-														if (requestBandBio.status == 200) {
+									requestBandImages.send();
 
-									                       		var object = JSON.parse(requestBandBio.responseText);
+									var requestBandBio = new XMLHttpRequest();
+									requestBandBio.open("GET", "http://developer.echonest.com/api/v4/artist/biographies?api_key=N6E4NIOVYMTHNDM8J&id=" +bandId+ "&format=json&results=1&start=0", true);
 
-																var bio = object.response.biographies[0].text;
-																document.getElementById("band_bio").innerHTML = bio; 
+									   requestBandBio.onreadystatechange = function() {
+									           //console.log(requestBandBio.status);
+									           if (requestBandBio.readyState == 4) {   
+													if (requestBandBio.status == 200) {
 
-																
+									                   		var object = JSON.parse(requestBandBio.responseText);
 
-															}	
-												}
+															var bio = object.response.biographies[0].text;
+															document.getElementById("band_bio").innerHTML = bio; 
 
+
+
+														}	
 											}
 
-										requestBandHotness.send();
-										
-										var requestBandHotness = new XMLHttpRequest();
-									    requestBandHotness.open("GET", "http://developer.echonest.com/api/v4/artist/hotttnesss?api_key=N6E4NIOVYMTHNDM8J&id=" + bandId + "&format=json", true);
+										}
 
-									       requestBandHotness.onreadystatechange = function() {
-									               //console.log(requestBandHotness.status);
-									               if (requestBandHotness.readyState == 4) {   
-														if (requestBandHotness.status == 200) {
+									requestBandBio.send();
 
-									                       		var object = JSON.parse(requestBandHotness.responseText);
+									var requestBandHotness = new XMLHttpRequest();
+									requestBandHotness.open("GET", "http://developer.echonest.com/api/v4/artist/hotttnesss?api_key=N6E4NIOVYMTHNDM8J&id=" + bandId + "&format=json", true);
 
-																hotness = object.response.artist.hotttnesss;
+									   requestBandHotness.onreadystatechange = function() {
+									           //console.log(requestBandHotness.status);
+									           if (requestBandHotness.readyState == 4) {   
+													if (requestBandHotness.status == 200) {
 
-															}	
-												}
+									                   		var object = JSON.parse(requestBandHotness.responseText);
 
+															hotness = object.response.artist.hotttnesss;
+
+														}	
 											}
 
-										requestBandHotness.send();
-										
-									}
+										}
 
-								}	
-					}
+									requestBandHotness.send();
 
-				}
+							}
+						}
+					} 
+					         
+			}
 
-			requestTips.send();
-
-		}
-		
-	}
+			requestBand.send();
+}
 
 function loadBands()  {
 	
@@ -343,7 +332,6 @@ function loadBands()  {
 							tempan='"'+ obj3.arr[i].name +'"';
 						artist.push(convertToMilitaryTime(obj3.arr[i].show_hour) +": "+ obj3.arr[i].name + urltemp + " playing at " + obj3.arr[i].show_hour +"<BR><a href='#ytplayer' onclick='BandList(" + tempan + ")'>Make a new playlist for this band</a><BR><BR>");
 						artist_name.push(obj3.arr[i].name);
-						console.log(artist_name.length);
 						costs.push(obj3.arr[i].cost);
 						GetTracks(obj3.arr[i].name, myAwesomePlaylist);
 			
@@ -430,14 +418,16 @@ function fixArtist(str)
 
 
 function playingNow() {
-
-       updatePageWithTrackDetails();
+ 
+	
+	updatePageWithTrackDetails();
 
        player.observe(models.EVENT.CHANGE, function (e) {
 
                // Only update the page if the track changed
                if (e.data.curtrack == true) {
                        updatePageWithTrackDetails();
+		
 	          }
        });
 
@@ -461,6 +451,14 @@ function updatePageWithTrackDetails() {
                var str2 = '<h3>by ' + '<a href="'+track.album.artist.uri+'">'+track.album.artist.name+'</a></h2>';
        header.innerHTML = albumImg + str1 + str2;
        }
+		// Boris Code
+		
+			var track = playerTrackInfo.data;
+			
+			loadBandInfo(track.album.artist.name);
+	
+		
+		
 }
 
 function GetTracks(name, playlist) {
