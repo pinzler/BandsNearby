@@ -26,6 +26,8 @@
 	 
 	 var BandsDB;
 	 var checkDB = [];
+	
+	 var counter = 0
 
 	 
 window.onbeforeunload = function(){
@@ -539,7 +541,7 @@ function playingNow() {
 
 function updatePageWithTrackDetails() {
 
-       var header = document.getElementById("ytplayer_div1");
+		var header = document.getElementById("ytplayer_div1");
 
        // This will be null if nothing is playing.
        var playerTrackInfo = player.track;
@@ -560,14 +562,21 @@ function updatePageWithTrackDetails() {
 		// Boris Code
 		
 			var track = playerTrackInfo.data;
-			
+
 			loadBandInfo(track.album.artist.name);
 			
 			for ( var h = 0; h < BandsDB.arr.length; h++ ) {
 				
 				if (BandsDB.arr[h].name.toLowerCase() == track.album.artist.name.toLowerCase()) {
 					
-					loadVenueInfo(BandsDB.arr[h].venue);
+					if (counter == 0) {
+						
+						console.log(counter);
+						loadVenueInfo(BandsDB.arr[h].venue);
+						counter = 1;
+						console.log(counter);
+					}
+					
 					
 				}
 	
