@@ -572,7 +572,7 @@ function updatePageWithTrackDetails() {
 				}
 	
 			}
-	}
+	}}
 }
 
 function GetTracks(name, playlist) {
