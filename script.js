@@ -46,21 +46,21 @@ window.onload = function(){
 				           var obj = JSON.parse(req1.responseText);
 				var i=0;
 				var sd = "";
-				var listform="<form name='view'><select id='venue_date'>";
+				var listform="<form name='view'><div><h2>Start date:</h2><select id='venue_date'>";
 				
 				for (h=0; h<obj.arr.length; h++) {
 					sd = obj.arr[h].show_date;
 					listform = listform + "<option value='" + sd + "'>" + sd +"</option>";
 					}
-				listform = listform + "</select>"
+				listform = listform + "</select></div>"
 
-				listform = listform + "<select id='venue_date2'>";
+				listform = listform + "<div><h2>End date:</h2><select id='venue_date2'>";
 				for (h=0; h<obj.arr.length; h++) {
 					sd = obj.arr[h].show_date;
 					listform = listform + "<option value='" + sd + "'>" + sd +"</option>";
 					}
 				
-				listform = listform + "</select> <input type='button' value='Submit' onClick='prepVenues()'></form>"
+				listform = listform + "</select></div> <button onClick='prepVenues()'>Submit</button></form>"
 
 				document.getElementById("list_div0").innerHTML = listform; 
 	                       
@@ -102,7 +102,7 @@ function prepVenues() {
 								checkBand(BandsDB.arr[h].name);
 							}
 						
-						var listform="<form name='view2'><SELECT id='multistore' SIZE=10 MULTIPLE>";
+						var options='';
 						bandstemp = [];
 						testBand = true;
 						for (h=0; h < BandsDB.arr.length; h++) {
@@ -115,14 +115,10 @@ function prepVenues() {
 							}
 						for (h=0; h < bandstemp.length; h++) {
 							ven = bandstemp[h];  
-							listform = listform + "<OPTION VALUE='" + ven + "' onclick='prepBands()'> " + ven + "<br>";
+							options = options + '<option value="' + ven + '" onclick="prepBands()">' + ven + "</option>";
 						}
-			
-			
-			listform = listform + "</select></form>";
-
-			document.getElementById("list_div1").innerHTML = ""; 
-			document.getElementById("list_div1").innerHTML = listform; 
+						
+						document.getElementById("multistore").innerHTML = options; 
                        
                	}
                }
@@ -161,8 +157,9 @@ function prepVenues() {
          function outputSelected(opt) {
             var sel = getSelected(opt);
                    
-    					var listform="<form name='view3'><SELECT id='multistore2' SIZE=10 MULTIPLE>";
-						var bandstemp = [];
+    					//var listform="<form name='view3'><SELECT id='multistore2' SIZE=10 MULTIPLE>";
+						var options = '';
+            			var bandstemp = [];
 						var testBand = true;
 						for (var item in sel)
 						{
@@ -180,16 +177,14 @@ function prepVenues() {
 						}
 						  for (h=0; h < bandstemp.length; h++) {
 							ven = bandstemp[h];  
-							listform = listform + "<OPTION VALUE='" + ven + "'> " + ven + "<br>";
+							options = options + '<option value="' + ven + '"> ' + ven + '</option>';
 						}
-
-			listform = listform + "</select><input type='button' value='Select All' onclick='selectAll()'> <input type='button' value='Make Playlist' onclick='loadBands()'></form> ";
-
-			document.getElementById("list_div2").innerHTML = ""; 
-			document.getElementById("list_div2").innerHTML = listform;
-    
-    
-    
+			
+			
+			//var buttons = "";
+			//document.getElementById("multistore2").innerHTML = ""; 
+			document.getElementById("multistore2").innerHTML = options;
+			$('#playlist_buttons').show();
          }
       
 function prepBands() {
@@ -339,13 +334,17 @@ function loadBandInfo(bandName) {
 															var url = '';
 									                   		var object = JSON.parse(requestBandImages.responseText);
 															
-															for (var i=0; i<object.response.images.length; i++) {
-
+															/*for (var i=0; i < object.response.images.length; i++) {
+																console.log(object.response.images[i]);
 																url = url + "<li><img src=" + object.response.images[i].url + "></li>";
+<<<<<<< HEAD
 																console.log("peo: " + url);
+=======
+																//console.log(url);
+>>>>>>> Updating layout, styles, and removing some unnecessary functionality
 																document.getElementById("band_pics").innerHTML = url;	
 
-															}
+															}*/
 
 													}	
 											}
@@ -496,14 +495,14 @@ function fixArtist(str)
  
  function update_results()
  {
-   results_string = "Venue cover price: $"+ costs[0] +"<BR><BR>";
-   document.getElementById("ytplayer_div3").innerHTML = "";
+   //results_string = "Venue cover price: $"+ costs[0] +"<BR><BR>";
+   //document.getElementById("ytplayer_div3").innerHTML = "";
    //artist.sort();
-   for ( var i = 0; i < artist.length; i++ )
-    {
-      results_string = results_string + artist[i]; 
-    }
-   document.getElementById("ytplayer_div3").innerHTML = results_string;  
+   //for ( var i = 0; i < artist.length; i++ )
+   // {
+   //   results_string = results_string + artist[i]; 
+   // }
+   //document.getElementById("ytplayer_div3").innerHTML = results_string;  
  }
 
  
@@ -761,5 +760,8 @@ $(function(){
 			 $(this).removeClass('active');
 		 }); 
 		 $(this).addClass('active');
+	 });
+	 $('button').live('click', function(e){
+		  e.preventDefault();
 	 });
 });

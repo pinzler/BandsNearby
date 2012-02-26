@@ -62,6 +62,7 @@ span.artistName{
 	left: 100px;
 	position:relative;
 	overflow: hidden;
+	width: 100px;
 }
 span.songName{
 	display: inline-block;
@@ -91,4 +92,50 @@ span.albumName{
 #venue_pics li img{
 
 	width: 500px;
+}
+
+div.menu{
+	display: inline-block;
+	width: 33%;
+	vertical-align: top;
+}
+div.bandChoice select, div.venueChoice select{
+  width: 90%;
+  background-color: #373737;
+  color: white;
+  border: 0px;
+}
+div.venueChoice select{
+ 
+}
+#playlist_buttons{
+	display: none;
+	float:right;
+	margin-right: 20px;
+}
+
+#list_div0 h2{
+	display: inline-block;
+	width: 80px;
+	margin-bottom: 8px;
+}
+
+.searchContainer div h1{
+	font-weight: bold;
+	font-size: 20px;
+	margin-bottom: 20px;
+}
+.searchContainer{
+	padding-left: 20px;
+}
+button{
+	-webkit-border-radius: 6px;
+}
+#list_div0 button{
+	position:relative;
+	left: 115px;
+	float: left;
+}
+#ytplayer_div3{
+	vertical-align: top;
 }

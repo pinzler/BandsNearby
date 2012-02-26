@@ -11,48 +11,58 @@
 	<body>
 	  <div class="searchContainer">
 		
-		<div class="dateChoice">
-	  	  <a name="list"></a>
+		<div class="dateChoice menu">
+		<h1>Choose a date range</h1>
 	  	  <div id="list_div0"></div>
 		</div>
-		<div class="venueChoice">
-	   	  <a name="list1"></a>
-	   	  <div id="list_div1"></div>
+		<div class="venueChoice menu">
+		  <h1>Choose venues</h1>
+	   	  <div id="list_div1">
+	   	    <form name='view2'>
+	   	      <select id="multistore" size="10" multiple="multiple">
+	   	        <option>Choose a date range to see venues</option>
+	   	      </select>
+	   	    </form>
+	   	  </div>
 	 	</div>
-	 	<div class="bandChoice">
-	   	  <a name="list2"></a>
-	   	  <div id="list_div2"></div>
+	 	<div class="bandChoice menu">
+	 	  <h1>Choose artists</h1>
+	   	  <div id="list_div2">
+	   	  	<form name='view3'>
+	   	  	  <select id="multistore2" size="10" multiple="multiple">
+	   	  	  	<option>Choose a venue to see band options</option>
+	   	  	  </select>
+	   	  	  <div id="playlist_buttons">
+	   	       <button onclick="selectAll()">Select All</button>
+	   	       <button onclick="loadBands()">Make Playlist</button>
+	   	      </div>
+	   	  	</form>
+	   	  </div>
 	 	</div>
 		
 	  </div>
 	  <div class="demo-canvas" id="artistContainer">
 	  
 	    <div class="artistInfo">
-	      <a name="ytplayer"></a>
 	      <div id="ytplayer_div1"></div>
 	    </div>
 	    <div class="venueInfo">
-	      <a name="results"></a>
 	      <div id="ytplayer_div3"></div>
-	      <div style="float: left; width: 360px; height: 360px;">
-		   <a name="pics"></a>
+	      <div>
 		     <div id="venue_pics_container">
 		       <ul id="venue_pics"></ul>
 		     </div>
 		   </div>
 		 </div>
-		<div style="float: left; width: 360px; height: 360px; ">
-		   <a name="tips"></a>
+		<div>
 		   <div id="venue_tips"></div>
-		 </div>
-		<div style="float: left; width: 360px; height: 360px;">
-		   <a name="bio"></a>
+		</div>
+		<div>
 		   <div id="band_bio"></div>
 		 </div>
-		<div style="float: left; width: 360px; height: 360px;">
-		   <a name="band Pics"></a>
+		<div>
 		   <div id="band_pics"></div>
-		 </div>
+		</div>
 	    </div>
 
 	  </div>
