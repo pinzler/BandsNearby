@@ -15,7 +15,7 @@ h1{
 }
 .artistInfo{
 	width: 200px;
-	margin-right: 10%;
+	margin-right: 5%;
 }
 #artistContainer{
 	display: none;
@@ -175,6 +175,7 @@ button{
 }
 #bio_container h1{
 	margin: 10px 0;
+	display: block;
 }
 #bio_container{
 	margin: 15px 0;
