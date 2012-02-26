@@ -262,7 +262,7 @@ function loadVenueInfo(venueName) {
 		}
 		
 	requestPhotos.send();
-	
+	/*
 	var requestTips = new XMLHttpRequest();
        requestTips.open("GET", "https://api.foursquare.com/v2/venues/" + VENUE_ID + "/tips?group=venue&client_id=HZDN05HPJVNNHXJVK0YKTCQUMGQWHUMF3Z10M5JTKQMPYZGB&client_secret=ZU42PRVV5MUNWEK1NU3Y2JCQFYU0T20DKVF4AGFG3BEPZ1YY&v=20120225", true);
 		
@@ -285,7 +285,7 @@ function loadVenueInfo(venueName) {
 		}
 		
 	requestTips.send();	
-
+*/
 }
 
 function loadBandInfo(bandName) {

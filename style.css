@@ -59,7 +59,7 @@
 }
 span.artistName{
 	display: inline-block;
-	left: 100px;
+	left: 150px;
 	position:relative;
 	overflow: hidden;
 	width: 100px;
@@ -72,6 +72,8 @@ span.songName{
 span.albumName{
 	display: inline-block;
 	left: 200px;
+	width: 120px;
+	height: 15px;
 	position:relative;
 	overflow: hidden;
 }
