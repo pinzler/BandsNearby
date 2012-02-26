@@ -531,7 +531,7 @@ function fixArtist(str)
 
 function playingNow() {
  
-	
+	$('#artistContainer').show();
 	updatePageWithTrackDetails();
 
        player.observe(models.EVENT.CHANGE, function (e) {
@@ -561,10 +561,11 @@ function updatePageWithTrackDetails() {
                		header.innerHTML = "";
         else
                		{
-               		var albumImg = '<img class="albumCover" src = "' + track.album.cover + '">';
+               		var h1 = '<h1>Track info</h1>';
+        			var albumImg = '<img class="albumCover" src = "' + track.album.cover + '">';
                		var str1 = '<h2 class="songTitle">'+ track.name + '</h2><h3>on <a href="'+track.album.uri+'">' + track.album.name + '</a></h3>';
                		var str2 = '<h3>by ' + '<a href="'+track.album.artist.uri+'">'+track.album.artist.name+'</a></h2>';
-       				header.innerHTML = albumImg + str1 + str2;
+       				header.innerHTML = h1 + albumImg + str1 + str2;
        	
 		// Boris Code
 		
