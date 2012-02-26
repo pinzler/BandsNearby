@@ -194,16 +194,10 @@ function prepVenues() {
          }
       
 function prepBands() {
-<<<<<<< HEAD
-	var x=document.getElementById("venueslist").selectedIndex;
-	var y=document.getElementById("venueslist").options;
-	venue = y[x].text;
-	loadBands(); 
-	loadVenueInfo();
-=======
+
 	outputSelected(document.getElementById("multistore").options);
 	
->>>>>>> new bands loader
+
 	
 }
 
@@ -415,7 +409,7 @@ function loadBandInfo(bandName) {
 function loadBands()  {
 	
 		myAwesomePlaylist = new models.Playlist("BNPlaylist " + show_date1+"-"+show_date2);     
-        	var tempBands = getSelected(document.getElementById("multistore").options);
+        	var tempBands = getSelected(document.getElementById("multistore2").options);
        				    var i=0;
 						artist=[];
 						artist_name=[];
@@ -423,34 +417,22 @@ function loadBands()  {
 						firstset=true;
 						var testdup=true;
 						var tempan ="";
-						for (k=0; k<tempBands.length; k++)
+						for (var k=0; k<tempBands.length; k++)
 							{
-<<<<<<< HEAD
-			 				if (obj3.arr[i].url != "") 
-			    					urltemp = " (<a href=" + obj3.arr[i].url + " target=_blank>link</a>)";
-							else urltemp = "";
-							tempan='"'+ obj3.arr[i].name +'"';
-						artist.push(convertToMilitaryTime(obj3.arr[i].show_hour) +": "+ obj3.arr[i].name + urltemp + " playing at " + obj3.arr[i].show_hour +"<BR><a href='#ytplayer' onclick='BandList(" + tempan + ")'>Make a new playlist for this band</a><BR><BR>");
-						artist_name.push(obj3.arr[i].name);
-						costs.push(obj3.arr[i].cost);
-						GetTracks(obj3.arr[i].name, myAwesomePlaylist);
-			
-						}
-							
-=======
 							testdup=true;
-							for (k=i; i<BandsDB.arr.length; i++)
+							for (i=0; i<BandsDB.arr.length; i++)
 								{
-								if (BandsDB.arr[i] == tempBands[k].value && firstset)
+								if (BandsDB.arr[i].name == tempBands[k].value && testdup)
 									{
+			 						venue=BandsDB.arr[i].venue;
 			 						testdup=false;
-			 						if (obj3.arr[i].url != "") 
+			 						if (BandsDB.arr[i].url != "") 
 			    						urltemp = " (<a href=" + BandsDB.arr[i].url + " target=_blank>link</a>)";
 									else urltemp = "";
 									tempan='"'+ BandsDB.arr[i].name +'"';
 									artist.push(BandsDB.arr[i].name + urltemp + " at " + BandsDB.arr[i].venue +", " + BandsDB.arr[i].show_date + ", "+  BandsDB.arr[i].show_hour +"<BR><a href='#ytplayer' onclick='BandList(" + tempan + ")'>Make a new playlist for this band</a><BR><BR>");
 									artist_name.push(BandsDB.arr[i].name);
-									console.log(artist_name.length);
+									//alert(artist_name.length);
 									costs.push(BandsDB.arr[i].cost);
 									GetTracks(BandsDB.arr[i].name, myAwesomePlaylist);
 									}
@@ -459,18 +441,11 @@ function loadBands()  {
 						//loadVenueInfo();
 						//loadBandInfo();	
 				 		
->>>>>>> new bands loader
 				 		update_results();
 						playingNow();
 						
-                      }
-            	}
-               	
-       	  };
-
-       req2.send();
+                    
       //TwilSet();
-		
 }
 
 
@@ -528,10 +503,10 @@ function fixArtist(str)
  {
    results_string = "Venue cover price: $"+ costs[0] +"<BR><BR>";
    document.getElementById("ytplayer_div3").innerHTML = "";
-   artist.sort();
+   //artist.sort();
    for ( var i = 0; i < artist.length; i++ )
     {
-      results_string = results_string + fixArtist(artist[i]); 
+      results_string = results_string + artist[i]; 
     }
    document.getElementById("ytplayer_div3").innerHTML = results_string;  
  }
