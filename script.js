@@ -334,17 +334,13 @@ function loadBandInfo(bandName) {
 															var url = '';
 									                   		var object = JSON.parse(requestBandImages.responseText);
 															
-															/*for (var i=0; i < object.response.images.length; i++) {
+															for (var i=0; i < object.response.images.length; i++) {
 																console.log(object.response.images[i]);
 																url = url + "<li><img src=" + object.response.images[i].url + "></li>";
-<<<<<<< HEAD
-																console.log("peo: " + url);
-=======
 																//console.log(url);
->>>>>>> Updating layout, styles, and removing some unnecessary functionality
 																document.getElementById("band_pics").innerHTML = url;	
 
-															}*/
+															}
 
 													}	
 											}
