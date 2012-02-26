@@ -201,9 +201,7 @@ function prepBands() {
 function loadVenueInfo(venueName) {
 	
 	var VENUE_ID;
-	
-	console.log("porro");
-	
+		
 	var arr = new Array(14);
 	for ( var i = 0; i < 14; i++ ) {
 	    arr[i] = new Array(2);
@@ -244,8 +242,7 @@ function loadVenueInfo(venueName) {
 		if (arr[i][0] == venueName) {
 		  
 			VENUE_ID = arr[i][1];
-			
-			
+	
 		  }
 	}
 	
@@ -331,6 +328,7 @@ function loadBandInfo(bandName) {
 
 									requestFamiliarity.send();
 
+									/*
 									var requestBandImages = new XMLHttpRequest();
 									requestBandImages.open("GET", "http://developer.echonest.com/api/v4/artist/images?api_key=N6E4NIOVYMTHNDM8J&id=" + bandId + "&format=json&results=1&start=0&license=unknown", true);
 
@@ -344,7 +342,7 @@ function loadBandInfo(bandName) {
 															for (var i=0; i<object.response.images.length; i++) {
 
 																url = url + "<li><img src=" + object.response.images[i].url + "></li>";
-																console.log(url);
+																console.log("peo: " + url);
 																document.getElementById("band_pics").innerHTML = url;	
 
 															}
@@ -355,6 +353,7 @@ function loadBandInfo(bandName) {
 										}
 
 									requestBandImages.send();
+									*/
 
 									var requestBandBio = new XMLHttpRequest();
 									requestBandBio.open("GET", "http://developer.echonest.com/api/v4/artist/biographies?api_key=N6E4NIOVYMTHNDM8J&id=" +bandId+ "&format=json&results=1&start=0", true);
@@ -553,7 +552,7 @@ function updatePageWithTrackDetails() {
 			
 			for ( var h = 0; h < BandsDB.arr.length; h++ ) {
 				
-				if (BandsDB.arr[h].name == track.album.artist.name) {
+				if (BandsDB.arr[h].name.toLowerCase == track.album.artist.name.toLowerCase) {
 					
 					loadVenueInfo(BandsDB.arr[h].venue);
 					
