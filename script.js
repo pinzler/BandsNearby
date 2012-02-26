@@ -74,11 +74,11 @@ window.onload = function(){
 
 function prepVenues() {
 	var x=document.getElementById("venue_date").selectedIndex;
-	var y=document.getElementById("venue_date").options;
-	show_date1 = y[x].text;
+	var y=document.getElementById("venue_date").value;
+	show_date1 = y;
 	x=document.getElementById("venue_date2").selectedIndex;
-	y=document.getElementById("venue_date2").options;
-	show_date2 = y[x].text;
+	y=document.getElementById("venue_date2").value;
+	show_date2 = y;
 	//alert(show_date2);
 	
 	   var req4 = new XMLHttpRequest();
