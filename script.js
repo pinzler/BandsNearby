@@ -9,6 +9,7 @@
 	var fakePlaylist = [];
 
 	 var artist = [];
+	 var venue_info = [];
 	 var artist_name = [];
 	 var urls = [];
 	 var costs = [];
@@ -27,7 +28,10 @@
 	 var BandsDB;
 	 var checkDB = [];
 	
-	 var counter = 0
+	 var counter = 0;
+	 
+	 var venueTxt;
+	 var bandTxt;
 
 	 
 window.onbeforeunload = function(){
@@ -439,7 +443,8 @@ function loadBands()  {
 			    						urltemp = " (<a href=" + BandsDB.arr[i].url + " target=_blank>link</a>)";
 									else urltemp = "";
 									tempan='"'+ BandsDB.arr[i].name +'"';
-									artist.push(BandsDB.arr[i].name + urltemp + " at " + BandsDB.arr[i].venue +", " + BandsDB.arr[i].show_date + ", "+  BandsDB.arr[i].show_hour +"<BR><a href='#ytplayer' onclick='BandList(" + tempan + ")'>Make a new playlist for this band</a><BR><BR>");
+									artist.push(BandsDB.arr[i].name + urltemp + " is playing soon at " + BandsDB.arr[i].venue +", " + BandsDB.arr[i].show_date + ", "+  BandsDB.arr[i].show_hour+ ", cover: $" + BandsDB.arr[i].cost +"<BR><a href='#ytplayer' onclick='BandList(" + tempan + ")'>Make a new playlist for this band</a><BR>");
+									venue_info.push(BandsDB.arr[i].name + urltemp +", " + BandsDB.arr[i].show_date + ", "+  BandsDB.arr[i].show_hour + ", cover: $" + BandsDB.arr[i].cost + "<BR>");
 									artist_name.push(BandsDB.arr[i].name);
 									//alert(artist_name.length);
 									costs.push(BandsDB.arr[i].cost);
@@ -564,6 +569,10 @@ function updatePageWithTrackDetails() {
 			var track = playerTrackInfo.data;
 
 			loadBandInfo(track.album.artist.name);
+			bandTxt="";
+			venueTxt="";
+			
+			var tempVen = "";
 			
 			for ( var h = 0; h < BandsDB.arr.length; h++ ) {
 				
@@ -573,13 +582,25 @@ function updatePageWithTrackDetails() {
 						
 						console.log(counter);
 						loadVenueInfo(BandsDB.arr[h].venue);
+						tempVen = BandsDB.arr[h].venue;
 						counter = 1;
 						console.log(counter);
+						bandTxt = artist[h];
+					
 					}
 					
 					
 				}
 	
+			}
+			for ( var h = 0; h < BandsDB.arr.length; h++ ) {
+				
+				if (BandsDB.arr[h].venue == tempVen) {
+				venueTxt = venueTxt + venue_info[h];
+			
+			}
+			
+			
 			}
 	}}
 }
