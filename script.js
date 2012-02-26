@@ -182,8 +182,7 @@ function prepVenues() {
 							ven = bandstemp[h];  
 							listform = listform + "<OPTION VALUE='" + ven + "'> " + ven + "<br>";
 						}
-			
-			
+
 			listform = listform + "</select><input type='button' value='Select All' onclick='selectAll()'> <input type='button' value='Make Playlist' onclick='loadBands()'></form> ";
 
 			document.getElementById("list_div2").innerHTML = ""; 
@@ -196,14 +195,14 @@ function prepVenues() {
 function prepBands() {
 
 	outputSelected(document.getElementById("multistore").options);
-	
 
-	
 }
 
-function loadVenueInfo() {
+function loadVenueInfo(venueName) {
 	
 	var VENUE_ID;
+	
+	console.log("porro");
 	
 	var arr = new Array(14);
 	for ( var i = 0; i < 14; i++ ) {
@@ -242,9 +241,10 @@ function loadVenueInfo() {
 	
 	for(var i=0; i<arr.length; i++) {
 		
-		if (arr[i][0] == venue) {
+		if (arr[i][0] == venueName) {
 		  
 			VENUE_ID = arr[i][1];
+			
 			
 		  }
 	}
@@ -369,8 +369,6 @@ function loadBandInfo(bandName) {
 															var bio = object.response.biographies[0].text;
 															document.getElementById("band_bio").innerHTML = bio; 
 
-
-
 														}	
 											}
 
@@ -437,9 +435,7 @@ function loadBands()  {
 									GetTracks(BandsDB.arr[i].name, myAwesomePlaylist);
 									}
 								}
-						     }
-						//loadVenueInfo();
-						//loadBandInfo();	
+						     }	
 				 		
 				 		update_results();
 						playingNow();
@@ -554,9 +550,17 @@ function updatePageWithTrackDetails() {
 			var track = playerTrackInfo.data;
 			
 			loadBandInfo(track.album.artist.name);
+			
+			for ( var h = 0; h < BandsDB.arr.length; h++ ) {
+				
+				if (BandsDB.arr[h].name == track.album.artist.name) {
+					
+					loadVenueInfo(BandsDB.arr[h].venue);
+					
+				}
 	
-		
-		
+			}
+	
 }
 
 function GetTracks(name, playlist) {
