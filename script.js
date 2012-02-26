@@ -756,7 +756,7 @@ function populateFakePlaylist(){
 	  for(var i=0; i<fakePlaylist.length; i++){
 		zebra = i%2 == 1 ? ' zebra' :'';
 		//console.log(fakePlaylist[i]);
-	    html += '<li class="playlistItem'+zebra+'" song_url='+fakePlaylist[i].href+'><span class="songName">'+fakePlaylist[i].name+'</span><span class="artistName"><a href="'+fakePlaylist[i].artists[0].uri'+">'+fakePlaylist[i].artists[0].name+'</a></span><span class="albumName"><a href="'+fakePlaylist[i].album.href+'">'+fakePlaylist[i].album.name+'</a></span></li>';
+	    html += '<li class="playlistItem'+zebra+'" song_url="'+fakePlaylist[i].href+'"><span class="songName">'+fakePlaylist[i].name+'</span><span class="artistName"><a href="'+fakePlaylist[i].artists[0].uri+'">'+fakePlaylist[i].artists[0].name+'</a></span><span class="albumName"><a href="'+fakePlaylist[i].album.href+'">'+fakePlaylist[i].album.name+'</a></span></li>';
 	  }
 	  $('#playlistContainer').show();
 	  $('#playlist').html(html);
