@@ -175,10 +175,10 @@ button{
 }
 #bio_container h1{
 	margin: 10px 0;
-	display: block;
 }
-#bio_container{
-	margin: 15px 0;
+#artistContainer #bio_container{
+	margin: 20px 0;
+	display: block;
 }
 span.header{
 	font-size: 14px;
