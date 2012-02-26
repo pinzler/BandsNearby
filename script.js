@@ -250,7 +250,18 @@ function loadVenueInfo(venueName) {
 					if (requestPhotos.status == 200) {
 							var url = '';
                        		var object = JSON.parse(requestPhotos.responseText);
-							for (var i=0; i<object.response.photos.items.length; i++) {
+							var ammPhotos;
+
+							if (object.response.photos.items.length > 10) {
+								
+								ammPhotos = 10;
+
+							} else {
+								
+								ammPhotos = object.response.photos.items.length;
+								
+							}
+							for (var i=0; i< ammPhotos; i++) {
 
 								url = url + "<li><img src=" + object.response.photos.items[i].url + "></li>";
 								document.getElementById("venue_pics").innerHTML = url; 
