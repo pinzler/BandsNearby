@@ -548,9 +548,9 @@ function updatePageWithTrackDetails() {
                header.innerText = "Nothing playing!";
        } else {
                var track = playerTrackInfo.data;
-		if (track.name.indexOf("Spotify") == -1 || track.album.name.indexOf("Spotify") == -1 || track.album.artist.name.indexOf("Spotify") == -1) 
+		if (track.name.indexOf("Spotify") != -1 || track.album.name.indexOf("Spotify") != -1 || track.album.artist.name.indexOf("Spotify") != -1) 
                		header.innerHTML = "";
-               	else
+        else
                		{
                		var albumImg = '<img class="albumCover" src = "' + track.album.cover + '">';
                		var str1 = '<h2 class="songTitle">'+ track.name + '</h2><h3>on <a href="'+track.album.uri+'">' + track.album.name + '</a></h3>';
