@@ -110,6 +110,7 @@ span.albumName{
 }
 #venue_pics_container{
 	overflow:hidden;
+	margin-right: 10px;
 }
 
 #venue_pics{
@@ -193,4 +194,9 @@ span.header{
 
 #artistContainer h1{
 	margin-bottom: 15px;
+}
+
+#venue_bands, #venue_bands a{
+	color: white;
+	vertical-align: top;
 }

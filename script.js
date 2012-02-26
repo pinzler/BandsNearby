@@ -581,16 +581,16 @@ function updatePageWithTrackDetails() {
 				
 				if (BandsDB.arr[h].name.toLowerCase() == track.album.artist.name.toLowerCase()) {
 					
-					if (counter == 0) {
+					//if (counter == 0) {
 						
-						console.log(counter);
+						//console.log(counter);
 						loadVenueInfo(BandsDB.arr[h].venue);
 						tempVen = BandsDB.arr[h].venue;
-						counter = 1;
+						//counter = 1;
 						console.log(counter);
 						bandTxt = artist[h];
 					
-					}
+					//}
 					
 					
 				}
@@ -693,7 +693,7 @@ function checkBand(name) {
 							else songcount = obj7.tracks.length;
 							for (var j=0; j < songcount; j++) 
 								for (var k=0; k < obj7.tracks[j].artists.length; k++)
-									if(typeof obj7.tracks[j].artists[k] != 'undefined')
+									if(typeof obj7.tracks[j].artists[k] != 'undefined' && typeof obj7.tracks[j].artists[k] != 'null')
 										if (obj7.tracks[j].artists[k].name.toLowerCase().trim() == name.toLowerCase().trim())
 										  notEmpty = true;
 							if (notEmpty)
