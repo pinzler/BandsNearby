@@ -21,6 +21,12 @@
 	 var familiarity;
 	 var hotness;
 
+     var show_date1 = "";
+	 var show_date2 = "";
+	 
+	 var BandsDB;
+	 var checkDB = [];
+
 	 
 window.onbeforeunload = function(){
 	player.playing = 0;	
@@ -30,7 +36,7 @@ window.onload = function(){
 
 	//Loads the initial pull down menu to pick dates
 	   
-	       var req1 = new XMLHttpRequest();
+	        var req1 = new XMLHttpRequest();
 	       req1.open("GET", "http://pinzler.kodingen.com/test/bnby/spot/getDates.php", true);
 	       req1.onreadystatechange = function() {
 	               //console.log(req1.status);
@@ -46,6 +52,14 @@ window.onload = function(){
 					sd = obj.arr[h].show_date;
 					listform = listform + "<option value='" + sd + "'>" + sd +"</option>";
 					}
+				listform = listform + "</select>"
+
+				listform = listform + "<select id='venue_date2'>";
+				for (h=0; h<obj.arr.length; h++) {
+					sd = obj.arr[h].show_date;
+					listform = listform + "<option value='" + sd + "'>" + sd +"</option>";
+					}
+				
 				listform = listform + "</select> <input type='button' value='Submit' onClick='prepVenues()'></form>"
 
 				document.getElementById("list_div0").innerHTML = listform; 
@@ -61,24 +75,51 @@ window.onload = function(){
 function prepVenues() {
 	var x=document.getElementById("venue_date").selectedIndex;
 	var y=document.getElementById("venue_date").options;
-	show_date = y[x].text;
+	show_date1 = y[x].text;
+	x=document.getElementById("venue_date2").selectedIndex;
+	y=document.getElementById("venue_date2").options;
+	show_date2 = y[x].text;
+	//alert(show_date2);
 	
 	   var req4 = new XMLHttpRequest();
-       req4.open("GET", "http://pinzler.kodingen.com/test/bnby/spot/getVenues.php?show_date=" + show_date, true);
+       req4.open("GET", "http://pinzler.kodingen.com/test/bnby/spot/getAll.php?show_date1=" + show_date1 + "&show_date2=" + show_date2, true);
        req4.onreadystatechange = function() {
                //console.log(req4.status);
 
                if (req4.readyState == 4) {
                        if (req4.status == 200) {
-			           var obj9 = JSON.parse(req4.responseText);
-						var ven = "";
-						var listform="<form name='view2'><select id='venueslist'>";
+			            BandsDB = JSON.parse(req4.responseText);
+						var bandstemp = [];
+						var testBand = true;
+						for (h=0; h < BandsDB.arr.length; h++) 
+							checkDB.push(0);					
+						for (h=0; h < BandsDB.arr.length; h++) {
+							testBand = true;
+							for (t=0; t < bandstemp.length; t++)
+								if (bandstemp[t] == BandsDB.arr[h].venue)
+									testBand=false;
+							if (testBand)
+								checkBand(BandsDB.arr[h].name);
+							}
+						
+						var listform="<form name='view2'><SELECT id='multistore' SIZE=10 MULTIPLE>";
+						bandstemp = [];
+						testBand = true;
+						for (h=0; h < BandsDB.arr.length; h++) {
+							testBand = true;
+							for (t=0; t < bandstemp.length; t++)
+								if (bandstemp[t] == BandsDB.arr[h].venue)
+									testBand=false;
+							if (testBand)
+								bandstemp.push(BandsDB.arr[h].venue);
+							}
+						for (h=0; h < bandstemp.length; h++) {
+							ven = bandstemp[h];  
+							listform = listform + "<OPTION VALUE='" + ven + "' onclick='prepBands()'> " + ven + "<br>";
+						}
 			
-			for (h=0; h<obj9.arr.length; h++) {
-				ven = obj9.arr[h].venue;
-				listform = listform + "<option value='" + ven + "'>" + ven + "</option>";
-				}
-			listform = listform + "</select> <input type='button' value='Submit' onClick='prepBands()'></form>";
+			
+			listform = listform + "</select></form>";
 
 			document.getElementById("list_div1").innerHTML = ""; 
 			document.getElementById("list_div1").innerHTML = listform; 
@@ -91,13 +132,78 @@ function prepVenues() {
 
 }
        
+ function selectAll() {
+    // have we been passed an ID
+        selectBox = document.getElementById('multistore2');
+    
+    // is the select box a multiple select box?
+    
+        for (var i = 0; i < selectBox.options.length; i++) 
+            selectBox.options[i].selected = true;
+    
+}
        
+        function getSelected(opt) {
+            var selected = new Array();
+            var index = 0;
+            for (var intLoop = 0; intLoop < opt.length; intLoop++) {
+               if ((opt[intLoop].selected) ||
+                   (opt[intLoop].checked)) {
+                  index = selected.length;
+                  selected[index] = new Object;
+                  selected[index].value = opt[intLoop].value;
+                  selected[index].index = intLoop;
+               }
+            }
+            return selected;
+         }
+
+         function outputSelected(opt) {
+            var sel = getSelected(opt);
+                   
+    					var listform="<form name='view3'><SELECT id='multistore2' SIZE=10 MULTIPLE>";
+						var bandstemp = [];
+						var testBand = true;
+						for (var item in sel)
+						{
+						  for (h=0; h < BandsDB.arr.length; h++) {
+						  	if (BandsDB.arr[h].venue == sel[item].value)
+						  		{
+								testBand = true;
+								for (t=0; t < bandstemp.length; t++)
+									if (bandstemp[t] == BandsDB.arr[h].name)
+										testBand=false;
+								if (testBand && checkDB[h] == 1)
+									bandstemp.push(BandsDB.arr[h].name);
+								}
+							}
+						}
+						  for (h=0; h < bandstemp.length; h++) {
+							ven = bandstemp[h];  
+							listform = listform + "<OPTION VALUE='" + ven + "'> " + ven + "<br>";
+						}
+			
+			
+			listform = listform + "</select><input type='button' value='Select All' onclick='selectAll()'> <input type='button' value='Make Playlist' onclick='loadBands()'></form> ";
+
+			document.getElementById("list_div2").innerHTML = ""; 
+			document.getElementById("list_div2").innerHTML = listform;
+    
+    
+    
+         }
+      
 function prepBands() {
+<<<<<<< HEAD
 	var x=document.getElementById("venueslist").selectedIndex;
 	var y=document.getElementById("venueslist").options;
 	venue = y[x].text;
 	loadBands(); 
 	loadVenueInfo();
+=======
+	outputSelected(document.getElementById("multistore").options);
+	
+>>>>>>> new bands loader
 	
 }
 
@@ -308,24 +414,18 @@ function loadBandInfo(bandName) {
 
 function loadBands()  {
 	
-		myAwesomePlaylist = new models.Playlist(venue + " " + show_date);     
-  
-       var req2 = new XMLHttpRequest();
-       req2.open("GET", "http://pinzler.kodingen.com/test/bnby/spot/getBands.php?venue=" + venue + "&show_date=" + show_date, true);
-       req2.onreadystatechange = function() {
-               //console.log(req2.status);
-               if (req2.readyState == 4) {
-                       if (req2.status == 200) {
-                        var obj3 = JSON.parse(req2.responseText);
-                        //console.log(obj3);
-						var i=0;
+		myAwesomePlaylist = new models.Playlist("BNPlaylist " + show_date1+"-"+show_date2);     
+        	var tempBands = getSelected(document.getElementById("multistore").options);
+       				    var i=0;
 						artist=[];
 						artist_name=[];
 						costs=[];
 						firstset=true;
+						var testdup=true;
 						var tempan ="";
-						for (i=0; i<obj3.arr.length; i++)									
+						for (k=0; k<tempBands.length; k++)
 							{
+<<<<<<< HEAD
 			 				if (obj3.arr[i].url != "") 
 			    					urltemp = " (<a href=" + obj3.arr[i].url + " target=_blank>link</a>)";
 							else urltemp = "";
@@ -337,6 +437,29 @@ function loadBands()  {
 			
 						}
 							
+=======
+							testdup=true;
+							for (k=i; i<BandsDB.arr.length; i++)
+								{
+								if (BandsDB.arr[i] == tempBands[k].value && firstset)
+									{
+			 						testdup=false;
+			 						if (obj3.arr[i].url != "") 
+			    						urltemp = " (<a href=" + BandsDB.arr[i].url + " target=_blank>link</a>)";
+									else urltemp = "";
+									tempan='"'+ BandsDB.arr[i].name +'"';
+									artist.push(BandsDB.arr[i].name + urltemp + " at " + BandsDB.arr[i].venue +", " + BandsDB.arr[i].show_date + ", "+  BandsDB.arr[i].show_hour +"<BR><a href='#ytplayer' onclick='BandList(" + tempan + ")'>Make a new playlist for this band</a><BR><BR>");
+									artist_name.push(BandsDB.arr[i].name);
+									console.log(artist_name.length);
+									costs.push(BandsDB.arr[i].cost);
+									GetTracks(BandsDB.arr[i].name, myAwesomePlaylist);
+									}
+								}
+						     }
+						//loadVenueInfo();
+						//loadBandInfo();	
+				 		
+>>>>>>> new bands loader
 				 		update_results();
 						playingNow();
 						
@@ -527,6 +650,38 @@ function BandList(name) {
        req7.send();
 	   tweet(name);	
 }
+
+
+function checkBand(name) {
+	    
+	   var notEmpty = false;
+       var req7 = new XMLHttpRequest();
+       req7.open("GET", "http://ws.spotify.com/search/1/track.json?q=" + name, true);
+       req7.onreadystatechange = function() {
+               //console.log(req7.status);
+
+               if (req7.readyState == 4) {
+                       if (req7.status == 200) {
+                       		var obj7 = JSON.parse(req7.responseText);
+                       		if (obj7.tracks.length>10) songcount = 10; 
+							else songcount = obj7.tracks.length;
+							for (var j=0; j < songcount; j++) 
+								for (var k=0; k < obj7.tracks[j].artists.length; k++)
+									if(typeof obj7.tracks[j].artists[k] != 'undefined')
+										if (obj7.tracks[j].artists[k].name.toLowerCase().trim() == name.toLowerCase().trim())
+										  notEmpty = true;
+							if (notEmpty)
+								for (q=0; q < BandsDB.arr.length; q++)
+									if (BandsDB.arr[q].name == name)
+										checkDB[q] = 1;				
+				        	
+               			}
+               	}
+       };
+
+       req7.send();
+}
+
 
 
 function tweet(artist1) {
