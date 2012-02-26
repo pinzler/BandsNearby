@@ -1,5 +1,12 @@
 body{
 	background-color: #7CC110;
+	overflow-x:hidden;
+	padding-right: 20px;
+}
+h1{
+	font-size: 24px;
+	font-weight: bold;
+	text-shadow: 0px 1px 3px #333;
 }
 .albumCover{
 	-webkit-border-radius: 12px;
@@ -56,7 +63,6 @@ body{
 	vertical-align: top;
 }
 #playlist{
-	margin-top: 1em;
 }
 .playlistItem{
 	padding: 3px 0 4px 5px;
@@ -79,41 +85,38 @@ body{
 }
 span.artistName{
 	display: inline-block;
-	left: 150px;
+	left: 30%;
 	position:relative;
 	overflow: hidden;
-	width: 100px;
+	width: 20%;
 }
 span.songName{
 	display: inline-block;
-	width: 250px;
+	width: 20%;
 	overflow: hidden;
 }
 span.albumName{
 	display: inline-block;
-	left: 200px;
-	width: 120px;
+	left: 40%;
+	width: 20%;
 	height: 15px;
 	position:relative;
 	overflow: hidden;
 }
 #venue_pics_container{
-	width: 200px;
 	overflow:hidden;
 }
 
 #venue_pics{
   float: left;
   position: relative;
-  height: 200px;
-  width: 5000px;
 }
 #venue_pics li{
 	float:left;
 }
 #venue_pics li img{
-
-	width: 500px;
+	width: 250px;
+	-webkit-border-radius: 12px;
 }
 
 div.menu{
@@ -156,7 +159,7 @@ button{
 }
 #list_div0 button{
 	position:relative;
-	left: 115px;
+	left: 135px;
 	float: left;
 }
 #ytplayer_div3{
@@ -164,4 +167,16 @@ button{
 }
 #band_bio{
 	color: white;
+}
+#bio_container h1{
+	margin: 10px 0;
+}
+#bio_container{
+	margin: 15px 0;
+}
+span.header{
+	font-size: 14px;
+	color: white;
+	margin-top: 15px;
+	font-weight: bold;
 }

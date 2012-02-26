@@ -252,7 +252,8 @@ function loadVenueInfo(venueName) {
 	}
 	
 	var requestPhotos = new XMLHttpRequest();
-       requestPhotos.open("GET", "https://api.foursquare.com/v2/venues/" + VENUE_ID + "/photos?group=venue&client_id=HZDN05HPJVNNHXJVK0YKTCQUMGQWHUMF3Z10M5JTKQMPYZGB&client_secret=ZU42PRVV5MUNWEK1NU3Y2JCQFYU0T20DKVF4AGFG3BEPZ1YY&v=20120225", true);
+	var ajaxUrl = "https://api.foursquare.com/v2/venues/" + VENUE_ID + "/photos?group=venue&client_id=HZDN05HPJVNNHXJVK0YKTCQUMGQWHUMF3Z10M5JTKQMPYZGB&client_secret=ZU42PRVV5MUNWEK1NU3Y2JCQFYU0T20DKVF4AGFG3BEPZ1YY&v=20120225";   
+	requestPhotos.open("GET", ajaxUrl, true);
 		
        requestPhotos.onreadystatechange = function() {
                //console.log(requestPhotos.status);
@@ -271,10 +272,11 @@ function loadVenueInfo(venueName) {
 								ammPhotos = object.response.photos.items.length;
 								
 							}
-							for (var i=0; i< ammPhotos; i++) {
-
+							if(object.response.photos.items.length){
+							  for (var i=0; i < 1; i++) {
 								url = url + "<li><img src=" + object.response.photos.items[i].url + "></li>";
 								document.getElementById("venue_pics").innerHTML = url; 
+							  }
 							}
 
 						}	
