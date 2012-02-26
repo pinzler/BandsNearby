@@ -46,18 +46,22 @@ window.onload = function(){
 				           var obj = JSON.parse(req1.responseText);
 				var i=0;
 				var sd = "";
+				var dis = "";
+				
 				var listform="<form name='view'><div><h2>Start date:</h2><select id='venue_date'>";
 				
 				for (h=0; h<obj.arr.length; h++) {
 					sd = obj.arr[h].show_date;
-					listform = listform + "<option value='" + sd + "'>" + sd +"</option>";
+					dis = obj.arr[h].display;
+					listform = listform + "<option value='" + sd + "'>" + dis +"</option>";
 					}
 				listform = listform + "</select></div>"
 
 				listform = listform + "<div><h2>End date:</h2><select id='venue_date2'>";
 				for (h=0; h<obj.arr.length; h++) {
 					sd = obj.arr[h].show_date;
-					listform = listform + "<option value='" + sd + "'>" + sd +"</option>";
+					dis = obj.arr[h].display;
+					listform = listform + "<option value='" + sd + "'>" + dis +"</option>";
 					}
 				
 				listform = listform + "</select></div> <button onClick='prepVenues()'>Submit</button></form>"
@@ -544,12 +548,15 @@ function updatePageWithTrackDetails() {
                header.innerText = "Nothing playing!";
        } else {
                var track = playerTrackInfo.data;
-		//var ytplayer_playitem = myAwesomePlaylist.indexOf(track); alert(ytplayer_playitem);
-               var albumImg = '<img class="albumCover" src = "' + track.album.cover + '">';
-               var str1 = '<h2 class="songTitle">'+ track.name + '</h2><h3>on <a href="'+track.album.uri+'">' + track.album.name + '</a></h3>';
-               var str2 = '<h3>by ' + '<a href="'+track.album.artist.uri+'">'+track.album.artist.name+'</a></h2>';
-       header.innerHTML = albumImg + str1 + str2;
-       }
+		if (track.name.indexOf("Spotify") == -1 || track.album.name.indexOf("Spotify") == -1 || track.album.artist.name.indexOf("Spotify") == -1) 
+               		header.innerHTML = "";
+               	else
+               		{
+               		var albumImg = '<img class="albumCover" src = "' + track.album.cover + '">';
+               		var str1 = '<h2 class="songTitle">'+ track.name + '</h2><h3>on <a href="'+track.album.uri+'">' + track.album.name + '</a></h3>';
+               		var str2 = '<h3>by ' + '<a href="'+track.album.artist.uri+'">'+track.album.artist.name+'</a></h2>';
+       				header.innerHTML = albumImg + str1 + str2;
+       	
 		// Boris Code
 		
 			var track = playerTrackInfo.data;
@@ -558,14 +565,14 @@ function updatePageWithTrackDetails() {
 			
 			for ( var h = 0; h < BandsDB.arr.length; h++ ) {
 				
-				if (BandsDB.arr[h].name.toLowerCase == track.album.artist.name.toLowerCase) {
+				if (BandsDB.arr[h].name.toLowerCase() == track.album.artist.name.toLowerCase()) {
 					
 					loadVenueInfo(BandsDB.arr[h].venue);
 					
 				}
 	
 			}
-	
+	}
 }
 
 function GetTracks(name, playlist) {
